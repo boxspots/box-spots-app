@@ -7,12 +7,16 @@ import AuthScreen from "./screens/AuthScreen.jsx";
 import SplashScreen from "./screens/SplashScreen";
 import axios from 'axios';
 import { useFonts } from 'expo-font';
+import MapScreen from "./screens/MapScreen";
+import SpotScreen from "./screens/SpotScreen";
+import CameraScreen from "./screens/CameraScreen";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
     let [loading, setLoading] = useState(true);
     let [user, setUser] = useState(undefined);
+    let [map, setMap] = useState(undefined);
 
     // Load font
     const [fontsLoaded] = useFonts({
@@ -21,8 +25,12 @@ export default function App() {
 
     // Load firebase
     useEffect(() => {
-        let unsub = FirebaseAuth.onAuthStateChanged(u => u ? loginUser(u) : setLoading(false));
-        return () => unsub();
+        setUser({ id: "random", given_name: "Taeksoo", family_name: "Kwon" });
+        setLoading(false);
+
+        // TODO - fix when publish
+        // let unsub = FirebaseAuth.onAuthStateChanged(u => u ? loginUser(u) : setLoading(false));
+        // return () => unsub();
     }, []);
 
     // Load from API
@@ -38,12 +46,14 @@ export default function App() {
     if (loading || !fontsLoaded) return <SplashScreen />
 
     return (
-        <AppContext.Provider value={{ user, setUser }}>
+        <AppContext.Provider value={{ user, setUser, map, setMap }}>
             <NavigationContainer>
-                <Stack.Navigator screenOptions={{ headerShown: false }}>
+                <Stack.Navigator screenOptions={{ headerShown: false, }}>
                     {user ? (
                         <>
-
+                            <Stack.Screen name="Map" component={MapScreen} />
+                            <Stack.Screen name="Spot" component={SpotScreen} />
+                            <Stack.Screen name="Camera" component={CameraScreen} />
                         </>
                     ) : (
                         <Stack.Screen name="Auth" component={AuthScreen} />

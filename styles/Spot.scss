@@ -1,0 +1,34 @@
+.center {
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+.title {
+    color: #73C3E0;
+    font-size: 23;
+}
+
+.name {
+    color: #73C3E0;
+    font-size: 40;
+    text-align: center;
+    margin: 10px 0;
+}
+
+.desc {
+    font-size: 23;
+    flex: 1;
+    margin: 5px;
+}
+
+.screen {
+    flex: 1;
+}
+
+.end {
+    flex: 1;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding: 20px;
+}
